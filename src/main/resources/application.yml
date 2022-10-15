@@ -1,0 +1,30 @@
+server:
+    port: 8080
+
+logging:
+    level:
+      dev:
+        itrust:
+          assistantservice: DEBUG
+
+info:
+    build:
+        version: @project.version@
+    java:
+        version: @java.version@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://hack4law.postgres.database.azure.com:5432/postgres
+    username: hack4law
+    password: zkw8GRO7omaO
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+hack4law-service:
+    cors:
+        allowed-origin: '*'
+        allowed-header: '*'
+        allowed-method: '*'

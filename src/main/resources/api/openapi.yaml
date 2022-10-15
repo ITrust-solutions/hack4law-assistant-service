@@ -1,0 +1,161 @@
+openapi: 3.0.1
+info:
+  title: Hack4Law
+  description: Operations defined for hack4law
+  contact:
+    name: Piotr Krawiecki
+    email: piotr.krawiecki@pl.ey.com
+  version: "1.0"
+tags:
+  - name: QueryUser
+    description: 'Query user'
+  - name: QueryCase
+    description: 'Query cases'
+paths:
+  /api/assistant/users/findAllUsers:
+    get:
+      tags:
+        - QueryUser
+      operationId: findAllUsers
+      summary: 'Receive all users'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoList'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /api/assistant/cases/findAllCases:
+    get:
+      tags:
+        - QueryCase
+      operationId: findAllCases
+      summary: 'Receive all cases'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDtoList'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+components:
+  schemas:
+    CaseDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseDto'
+    CaseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        receiptDate:
+          type: string
+          format: date
+        deadlineDate:
+          type: string
+          format: date
+        caseStatus:
+          $ref: '#/components/schemas/CaseStatus'
+        assignedUser:
+          type: string
+        helpingUser:
+          type: string
+        notesList:
+          $ref: '#/components/schemas/NoteDtoList'
+        filesList:
+          $ref: '#/components/schemas/FileDtoList'
+    CaseStatus:
+      enum:
+        - NIEZACZETA
+        - W_TOKU
+        - OCZEKUJE_NA_INNY_ORGAN
+        - PO_STRONIE_WNIOSKODAWCY
+        - ZAKONCZONA
+        - ZAAKCEPTOWANA
+        - DO_AKCEPTACJI
+    NoteDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/NoteDto'
+    NoteDto:
+      type: object
+      properties:
+        comment:
+          type: string
+    FileDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/FileDto'
+    FileDto:
+      type: object
+      properties:
+        fileLink:
+          type: string
+        fileDescription:
+          type: string
+        fileData:
+          type: string
+          format: byte
+        fileType:
+          $ref: '#/components/schemas/FileType'
+    FileType:
+      enum:
+        - DOKUMENT
+        - AKTA_SPRAWY
+        - SKAN
+        - INNY
+    UserDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserDto'
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        login:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        userRole:
+          $ref: '#/components/schemas/UserRole'
+    UserRole:
+      enum:
+        - SEDZIA
+        - RADCA
+        - PRAWNIK
+        - ADWOKAT
+        - PRACOWNIK_KANCELARII
+        - MANAGER
+        - SPECJALISTA
+    ErrorMessage:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMsg:
+          type: string
+        errorDetails:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
