@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>dev.itrust.assistantservice</groupId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <artifactId>hack4law-assistant-service</artifactId>
 
     <properties>
