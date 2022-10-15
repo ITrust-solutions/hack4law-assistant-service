@@ -145,6 +145,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+
+  /api/assistant/cases/updateById/{caseId}:
+    put:
+      tags:
+        - CreateCase
+      operationId: updateCaseById
+      summary: 'Update case by id'
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: integer
+          required: true
+          description: 'case id to update'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseDto'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseResponseDto'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
 components:
   schemas:
     CaseDtoList:

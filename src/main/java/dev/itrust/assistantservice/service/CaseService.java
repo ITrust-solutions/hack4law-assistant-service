@@ -15,6 +15,7 @@ import dev.itrust.assistantservice.repository.CaseStepDefinitionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,5 +83,20 @@ public class CaseService {
         }
 
         throw new RuntimeException("No case id found");
+    }
+
+    public CaseResponseDto updateCaseById(int id, CaseDto caseDto) {
+        var case1 = caseRepository.findById(Long.valueOf(id)).get();
+        case1.setCaseStatus(caseDto.getCaseStatus());
+        case1.setCaseNumber(caseDto.getCaseNumber());
+        case1.setDescription(caseDto.getDescription());
+        case1.setReceiptDate(caseDto.getReceiptDate());
+        case1.setDeadlineDate(caseDto.getDeadlineDate());
+        case1.setAssignedUser(caseDto.getAssignedUser());
+        case1.setHelpingUser(caseDto.getHelpingUser());
+
+        caseRepository.save(case1);
+
+        return CaseMapper.INSTANCE.toDto(case1);
     }
 }

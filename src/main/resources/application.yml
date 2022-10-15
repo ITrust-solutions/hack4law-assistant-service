@@ -20,8 +20,6 @@ spring:
     password: zkw8GRO7omaO
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: create-drop
 
 springdoc:
   swagger-ui:

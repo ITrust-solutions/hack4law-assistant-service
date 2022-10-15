@@ -42,4 +42,10 @@ public class CaseController implements QueryCaseApi, CreateCaseApi {
     public ResponseEntity<CaseResponseDto> findCaseById(Integer caseId) {
         return ResponseEntity.ok(caseService.findCaseById(caseId));
     }
+
+    @Override
+    public ResponseEntity<CaseResponseDto> updateCaseById(Integer caseId, CaseDto caseDto) {
+        return ResponseEntity.ok(caseService.updateCaseById(caseId, caseDto));
+    }
+
 }

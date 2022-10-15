@@ -54,7 +54,6 @@ Content-Type: application/json
   ]
 }
 
-
 ###
 POST http://localhost:8080/api/assistant/cases/createCase
 Content-Type: application/json
@@ -98,7 +97,21 @@ Content-Type: application/json
 GET http://localhost:8080/api/assistant/cases/findAllCases
 
 ###
-GET http://localhost:8080/api/assistant/cases/6
+GET http://localhost:8080/api/assistant/cases/11
 
 ###
 GET http://localhost:8080/api/assistant/cases/findAllCaseDefinitions
+
+###
+PUT http://localhost:8080/api/assistant/cases/updateById/11
+Content-Type: application/json
+
+{
+  "caseNumber": "Sprawa 12",
+  "description": "Sprawa Nowa",
+  "receiptDate": "2022-10-12",
+  "deadlineDate": "2022-10-12",
+  "caseStatus": "NIEZACZETA",
+  "assignedUser": "jan.kowalski",
+  "helpingUser": "jan.kowalski"
+}
