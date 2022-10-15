@@ -13,7 +13,30 @@ tags:
     description: 'Query cases'
   - name: QueryUser
     description: 'Query user'
+  - name: KSeF
+    description: 'KSeF Operations'
 paths:
+  /api/ksef/getInvoiceXml/{invoiceNumber}:
+    get:
+      tags:
+        - KSeF
+      operationId: fetchKsefInvoice
+      summary: 'Fetch KSeF invoice'
+      parameters:
+        - in: path
+          name: invoiceNumber
+          schema:
+            type: string
+          required: true
+          description: 'invoice number'
+      responses:
+        '200':
+          description: A XML file
+          content:
+            application/xml:
+              schema:
+                type: string
+                format: binary
   /api/assistant/cases/createCaseDefinition:
     post:
       tags:
