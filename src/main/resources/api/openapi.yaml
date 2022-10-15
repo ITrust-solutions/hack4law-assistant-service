@@ -7,24 +7,74 @@ info:
     email: piotr.krawiecki@pl.ey.com
   version: "1.0"
 tags:
-  - name: QueryUser
-    description: 'Query user'
+  - name: CreateCase
+    description: 'Create case'
   - name: QueryCase
     description: 'Query cases'
+  - name: QueryUser
+    description: 'Query user'
 paths:
-  /api/assistant/users/findAllUsers:
-    get:
+  /api/assistant/cases/createCaseDefinition:
+    post:
       tags:
-        - QueryUser
-      operationId: findAllUsers
-      summary: 'Receive all users'
+        - CreateCase
+      operationId: createCaseDefinition
+      summary: 'Create Case'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseDefinitionDto'
       responses:
         '200':
           description: 'OK'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDtoList'
+                $ref: '#/components/schemas/CaseDefinitionDto'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /api/assistant/cases/createCase:
+    post:
+      tags:
+        - CreateCase
+      operationId: createCase
+      summary: 'Create Case'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseDto'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDto'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /api/assistant/cases/findAllCaseDefinitions:
+    get:
+      tags:
+        - QueryCase
+      operationId: findAllCaseDefinitions
+      summary: 'Receive all case definitions'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseDefinitionDtoList'
         '400':
           description: 'Bad request'
           content:
@@ -50,6 +100,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+  /api/assistant/users/findAllUsers:
+    get:
+      tags:
+        - QueryUser
+      operationId: findAllUsers
+      summary: 'Receive all users'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoList'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 components:
   schemas:
     CaseDtoList:
@@ -61,6 +130,14 @@ components:
       properties:
         id:
           type: integer
+        caseDefinitionId:
+          type: integer
+        caseTaskDtoList:
+          $ref: '#/components/schemas/CaseTaskDtoList'
+        caseNumber:
+          type: string
+        description:
+          type: string
         receiptDate:
           type: string
           format: date
@@ -82,10 +159,30 @@ components:
         - NIEZACZETA
         - W_TOKU
         - OCZEKUJE_NA_INNY_ORGAN
-        - PO_STRONIE_WNIOSKODAWCY
+        - ODRZUCONA
         - ZAKONCZONA
         - ZAAKCEPTOWANA
         - DO_AKCEPTACJI
+        - NOWA
+    TaskStatus:
+      enum:
+        - NOWY
+        - W_TRAKCIE
+        - ZAKONCZONY
+        - ODRZUCONY
+    CaseTaskDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseTaskDto'
+    CaseTaskDto:
+      type: object
+      properties:
+        caseDefinitionId:
+          type: integer
+        caseStepDefinitionId:
+          type: integer
+        taskStatus:
+          $ref: '#/components/schemas/TaskStatus'
     NoteDtoList:
       type: array
       items:
@@ -108,7 +205,6 @@ components:
           type: string
         fileData:
           type: string
-          format: byte
         fileType:
           $ref: '#/components/schemas/FileType'
     FileType:
@@ -146,6 +242,36 @@ components:
         - PRACOWNIK_KANCELARII
         - MANAGER
         - SPECJALISTA
+    CaseDefinitionDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseDefinitionDto'
+    CaseDefinitionDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        caseType:
+          type: string
+        name:
+          type: string
+        caseStepDefinitionDtoList:
+          $ref: '#/components/schemas/CaseStepDefinitionDtoList'
+    CaseStepDefinitionDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseStepDefinitionDto'
+    CaseStepDefinitionDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        name:
+          type: string
     ErrorMessage:
       type: object
       properties:

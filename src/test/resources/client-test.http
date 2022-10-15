@@ -1,0 +1,49 @@
+###
+POST http://localhost:8080/api/assistant/cases/createCaseDefinition
+Content-Type: application/json
+
+{
+  "key": "defKey",
+  "caseType": "caseType",
+  "name": "nameDef",
+  "caseStepDefinitionDtoList" : [
+    {
+      "key": "defStepKey",
+      "name": "nameStepDef"
+    }
+  ]
+}
+
+###
+POST http://localhost:8080/api/assistant/cases/createCase
+Content-Type: application/json
+
+{
+  "caseDefinitionId": 1,
+  "caseTaskDtoList": [
+    {
+      "caseDefinitionId": 1,
+      "caseStepDefinitionId": 2,
+      "taskStatus": "W_TRAKCIE"
+    }
+  ],
+  "caseNumber": "122oggoigoi",
+  "description": "eee",
+  "notesList": [
+    {
+      "comment": "to jest comment1"
+    }
+  ],
+  "filesList": [
+    {
+      "fileLink": "file link",
+      "fileDescription": "file desc"
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/api/assistant/cases/findAllCases
+
+###
+GET http://localhost:8080/api/assistant/cases/findAllCaseDefinitions

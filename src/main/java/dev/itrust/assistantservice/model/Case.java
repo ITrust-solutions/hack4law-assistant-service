@@ -16,6 +16,14 @@ import java.util.List;
 @Setter
 public class Case extends BaseEntity {
 
+    @ManyToOne(optional = false)
+    private CaseDefinition caseDefinition;
+
+    @ManyToOne
+    private Case parent;
+
+    private String caseNumber;
+    private String description;
     private LocalDate receiptDate;
     private LocalDate deadlineDate;
     private String assignedUser;
@@ -26,10 +34,14 @@ public class Case extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "parent_case_id")
-    private List<Note> noteList = new ArrayList<>();
+    private List<Note> notesList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "parent_case_id")
-    private List<File> fileList = new ArrayList<>();
+    private List<File> filesList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "parent_case_id")
+    private List<CaseTask> taskList = new ArrayList<>();
 
 }
