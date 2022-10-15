@@ -5,10 +5,12 @@ import dev.itrust.assistantservice.model.Case;
 import dev.itrust.assistantservice.model.CaseTask;
 import dev.itrust.assistantservice.model.File;
 import dev.itrust.assistantservice.model.Note;
+import org.apache.commons.lang3.ArrayUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Mapper
@@ -110,7 +112,7 @@ public interface CaseMapper {
         file.setFileLink( fileDto.getFileLink() );
         file.setFileDescription( fileDto.getFileDescription() );
         file.setFileType( fileDto.getFileType() );
-        file.setFileData( fileDto.getFileData() );
+        file.setFileData( fileDto.getFileData( ));
 
         return file;
     }
@@ -162,7 +164,7 @@ public interface CaseMapper {
 
         fileDto.setFileLink( file.getFileLink() );
         fileDto.setFileDescription( file.getFileDescription() );
-        fileDto.setFileData( file.getFileData() );
+        fileDto.setFileData(file.getFileData() );
         fileDto.setFileType( file.getFileType() );
 
         return fileDto;

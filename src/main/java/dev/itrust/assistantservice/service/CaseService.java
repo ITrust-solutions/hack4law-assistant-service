@@ -1,20 +1,21 @@
 package dev.itrust.assistantservice.service;
 
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDefinitionDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseResponseDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseTaskDto;
+import dev.itrust.assistantservice.hack4law_assistant_service.model.*;
 import dev.itrust.assistantservice.mapper.CaseDefinitionMapper;
 import dev.itrust.assistantservice.mapper.CaseMapper;
 import dev.itrust.assistantservice.model.Case;
 import dev.itrust.assistantservice.model.CaseDefinition;
 import dev.itrust.assistantservice.model.CaseTask;
+import dev.itrust.assistantservice.model.File;
 import dev.itrust.assistantservice.repository.CaseDefinitionRepository;
 import dev.itrust.assistantservice.repository.CaseRepository;
 import dev.itrust.assistantservice.repository.CaseStepDefinitionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +99,16 @@ public class CaseService {
         caseRepository.save(case1);
 
         return CaseMapper.INSTANCE.toDto(case1);
+    }
+
+    public void uploadAttachment(int caseId, String fileData, String fileType, String fileDescription, String fileLink) throws IOException {
+        var case_s = this.caseRepository.getReferenceById((long) caseId);
+        File file = new File();
+        file.setFileData(fileData);
+        file.setFileType(FileType.valueOf(fileType));
+        file.setFileDescription(fileDescription);
+        file.setFileLink(fileLink);
+        case_s.getFilesList().add(file);
+        caseRepository.save(case_s);
     }
 }

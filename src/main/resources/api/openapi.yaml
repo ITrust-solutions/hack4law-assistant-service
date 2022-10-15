@@ -15,7 +15,45 @@ tags:
     description: 'Query user'
   - name: KSeF
     description: 'KSeF Operations'
+  - name: CaseAttachments
+    description: 'Case attachments'
 paths:
+  /api/cases/upload-attachment/{caseId}:
+    put:
+      tags:
+        - CaseAttachments
+      operationId: upload-new-attachment
+      summary: 'Upload new attachment'
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: integer
+          required: true
+          description: 'case id to add attachment'
+        - in: query
+          name: fileType
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: fileDescription
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: fileLink
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: fileData
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: 'OK'
   /api/ksef/getInvoiceXml/{invoiceNumber}:
     get:
       tags:
