@@ -55,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CaseDto'
+                $ref: '#/components/schemas/CaseResponseDto'
         '400':
           description: 'Bad request'
           content:
@@ -81,6 +81,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+  /api/assistant/cases/{caseId}:
+    get:
+      tags:
+        - QueryCase
+      operationId: findCaseById
+      summary: 'Receive case by id'
+      parameters:
+        - in: path
+          name: caseId
+          schema:
+            type: integer
+          required: true
+          description: 'case id to retrieve'
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseResponseDto'
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /api/assistant/cases/findAllCases:
     get:
       tags:
@@ -93,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CaseDtoList'
+                $ref: '#/components/schemas/CaseResponseDtoList'
         '400':
           description: 'Bad request'
           content:
@@ -144,6 +170,9 @@ components:
         deadlineDate:
           type: string
           format: date
+        finishDate:
+          type: string
+          format: date
         caseStatus:
           $ref: '#/components/schemas/CaseStatus'
         assignedUser:
@@ -170,6 +199,64 @@ components:
         - W_TRAKCIE
         - ZAKONCZONY
         - ODRZUCONY
+
+    CaseResponseDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseResponseDto'
+    CaseResponseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        caseType:
+          type: string
+        name:
+          type: string
+        caseTaskDtoList:
+          $ref: '#/components/schemas/CaseTaskResponseDtoList'
+        caseNumber:
+          type: string
+        description:
+          type: string
+        receiptDate:
+          type: string
+          format: date
+        deadlineDate:
+          type: string
+          format: date
+        finishDate:
+          type: string
+          format: date
+        caseStatus:
+          $ref: '#/components/schemas/CaseStatus'
+        assignedUser:
+          type: string
+        helpingUser:
+          type: string
+        notesList:
+          $ref: '#/components/schemas/NoteDtoList'
+        filesList:
+          $ref: '#/components/schemas/FileDtoList'
+
+    CaseTaskResponseDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CaseTaskResponseDto'
+    CaseTaskResponseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        name:
+          type: string
+        taskStatus:
+          $ref: '#/components/schemas/TaskStatus'
+
     CaseTaskDtoList:
       type: array
       items:

@@ -2,6 +2,7 @@ package dev.itrust.assistantservice.service;
 
 import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDefinitionDto;
 import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDto;
+import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseResponseDto;
 import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseTaskDto;
 import dev.itrust.assistantservice.mapper.CaseDefinitionMapper;
 import dev.itrust.assistantservice.mapper.CaseMapper;
@@ -29,7 +30,7 @@ public class CaseService {
         return CaseDefinitionMapper.INSTANCE.toDto(caseDefinitionRepository.save(CaseDefinitionMapper.INSTANCE.toModel(caseDefinitionDto)));
     }
 
-    public CaseDto createCase(CaseDto caseDto) {
+    public CaseResponseDto createCase(CaseDto caseDto) {
         var case1 = CaseMapper.INSTANCE.toModel(caseDto);
         var caseDef = caseDefinitionRepository.findById((long) caseDto.getCaseDefinitionId());
         if(caseDef == null) {
@@ -64,13 +65,22 @@ public class CaseService {
 
     }
 
-    public List<CaseDto> findAllCases() {
+    public List<CaseResponseDto> findAllCases() {
         var caseList = caseRepository.findAll();
-        var dtoList = new ArrayList<CaseDto>();
+        var dtoList = new ArrayList<CaseResponseDto>();
         for(Case case1 : caseList) {
             dtoList.add(CaseMapper.INSTANCE.toDto(case1));
         }
 
         return dtoList;
+    }
+
+    public CaseResponseDto findCaseById(int id) {
+        var case1 = caseRepository.findById(Long.valueOf(id));
+        if(case1.isPresent()) {
+            return CaseMapper.INSTANCE.toDto(case1.get());
+        }
+
+        throw new RuntimeException("No case id found");
     }
 }

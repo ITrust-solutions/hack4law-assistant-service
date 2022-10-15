@@ -23,6 +23,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: false
 hack4law-service:
     cors:
         allowed-origin: '*'

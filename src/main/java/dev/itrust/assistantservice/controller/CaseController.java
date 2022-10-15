@@ -4,6 +4,7 @@ import dev.itrust.assistantservice.hack4law_assistant_service.api.CreateCaseApi;
 import dev.itrust.assistantservice.hack4law_assistant_service.api.QueryCaseApi;
 import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDefinitionDto;
 import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDto;
+import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseResponseDto;
 import dev.itrust.assistantservice.service.CaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class CaseController implements QueryCaseApi, CreateCaseApi {
     private final CaseService caseService;
 
     @Override
-    public ResponseEntity<CaseDto> createCase(CaseDto caseDto) {
+    public ResponseEntity<CaseResponseDto> createCase(CaseDto caseDto) {
         return ResponseEntity.ok(caseService.createCase(caseDto));
     }
 
@@ -33,7 +34,12 @@ public class CaseController implements QueryCaseApi, CreateCaseApi {
     }
 
     @Override
-    public ResponseEntity<List<CaseDto>> findAllCases() {
+    public ResponseEntity<List<CaseResponseDto>> findAllCases() {
         return ResponseEntity.ok(caseService.findAllCases());
+    }
+
+    @Override
+    public ResponseEntity<CaseResponseDto> findCaseById(Integer caseId) {
+        return ResponseEntity.ok(caseService.findCaseById(caseId));
     }
 }

@@ -1,9 +1,6 @@
 package dev.itrust.assistantservice.mapper;
 
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.CaseTaskDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.FileDto;
-import dev.itrust.assistantservice.hack4law_assistant_service.model.NoteDto;
+import dev.itrust.assistantservice.hack4law_assistant_service.model.*;
 import dev.itrust.assistantservice.model.Case;
 import dev.itrust.assistantservice.model.CaseTask;
 import dev.itrust.assistantservice.model.File;
@@ -41,12 +38,12 @@ public interface CaseMapper {
         return case1;
     }
 
-    default CaseDto toDto(Case aCase) {
+    default CaseResponseDto toDto(Case aCase) {
         if ( aCase == null ) {
             return null;
         }
 
-        CaseDto caseDto = new CaseDto();
+        CaseResponseDto caseDto = new CaseResponseDto();
 
         if ( aCase.getId() != null ) {
             caseDto.setId( aCase.getId().intValue() );
@@ -60,13 +57,16 @@ public interface CaseMapper {
         caseDto.setHelpingUser( aCase.getHelpingUser() );
         caseDto.setNotesList( noteListToNoteDtoList( aCase.getNotesList() ) );
         caseDto.setFilesList( fileListToFileDtoList( aCase.getFilesList() ) );
-        caseDto.setCaseDefinitionId(aCase.getCaseDefinition().getId().intValue());
+        caseDto.setKey(aCase.getCaseDefinition().getKey());
+        caseDto.setCaseType(aCase.getCaseDefinition().getCaseType());
+        caseDto.setName(aCase.getCaseDefinition().getName());
 
-        List<CaseTaskDto> caseTaskDtoList = new ArrayList<>();
+        List<CaseTaskResponseDto> caseTaskDtoList = new ArrayList<>();
         for(CaseTask caseTask : aCase.getTaskList()) {
-            var caseTaskDto = new CaseTaskDto();
-            caseTaskDto.setCaseDefinitionId(aCase.getCaseDefinition().getId().intValue());
-            caseTaskDto.setCaseStepDefinitionId(caseTask.getCaseStepDefinition().getId().intValue());
+            var caseTaskDto = new CaseTaskResponseDto();
+            caseTaskDto.setId(caseTask.getId().intValue());
+            caseTaskDto.setKey(caseTask.getCaseStepDefinition().getKey());
+            caseTaskDto.setName(caseTask.getCaseStepDefinition().getName());
             caseTaskDto.setTaskStatus(caseTask.getTaskStatus());
             caseTaskDtoList.add(caseTaskDto);
         }

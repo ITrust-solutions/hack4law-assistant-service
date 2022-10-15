@@ -3,16 +3,57 @@ POST http://localhost:8080/api/assistant/cases/createCaseDefinition
 Content-Type: application/json
 
 {
-  "key": "defKey",
-  "caseType": "caseType",
-  "name": "nameDef",
+  "key": "Przeksztalcenie",
+  "caseType": "Przekształcenie prawa wieczystego użytkowania we własność",
+  "name": "Przekształcenie prawa wieczystego użytkowania we własność",
   "caseStepDefinitionDtoList" : [
     {
-      "key": "defStepKey",
-      "name": "nameStepDef"
+      "key": "zweryfikować adres z decyzją",
+      "name": "zweryfikować adres z decyzją"
+    },
+    {
+      "key": "potwierdzić podpisy na wniosku z księgą wieczystą",
+      "name": "potwierdzić podpisy na wniosku z księgą wieczystą"
+    },
+    {
+      "key": " weryfikacja pełnomocnictwa",
+      "name": " weryfikacja pełnomocnictwa"
+    },
+    {
+      "key": "obliczenie kwoty do wpłaty",
+      "name": "obliczenie kwoty do wpłaty"
     }
   ]
 }
+
+###
+POST http://localhost:8080/api/assistant/cases/createCaseDefinition
+Content-Type: application/json
+
+{
+  "key": "Wniosek",
+  "caseType": "wniosek o stwierdzenie nadpłaty (urząd skarbowy)",
+  "name": "wniosek o stwierdzenie nadpłaty (urząd skarbowy)",
+  "caseStepDefinitionDtoList" : [
+    {
+      "key": "zweryfikować prawidłowość podpisów",
+      "name": "zweryfikować prawidłowość podpisów"
+    },
+    {
+      "key": "weryfikacja pełnomocnictwa (jeśli dołączono)",
+      "name": "weryfikacja pełnomocnictwa (jeśli dołączono)"
+    },
+    {
+      "key": "weryfikacja terminu przedawnienia",
+      "name": "weryfikacja terminu przedawnienia"
+    },
+    {
+      "key": "weryfikacja załaczników do wniosku (jeśli dołączono)",
+      "name": "weryfikacja załaczników do wniosku (jeśli dołączono)"
+    }
+  ]
+}
+
 
 ###
 POST http://localhost:8080/api/assistant/cases/createCase
@@ -20,7 +61,18 @@ Content-Type: application/json
 
 {
   "caseDefinitionId": 1,
+  "description": "Sprawa",
+  "receiptDate": "2022-10-15",
+  "deadlineDate": "2022-10-15",
+  "caseStatus": "NIEZACZETA",
+  "assignedUser": "string",
+  "helpingUser": "string",
   "caseTaskDtoList": [
+    {
+      "caseDefinitionId": 1,
+      "caseStepDefinitionId": 3,
+      "taskStatus": "W_TRAKCIE"
+    },
     {
       "caseDefinitionId": 1,
       "caseStepDefinitionId": 2,
@@ -44,6 +96,9 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/api/assistant/cases/findAllCases
+
+###
+GET http://localhost:8080/api/assistant/cases/6
 
 ###
 GET http://localhost:8080/api/assistant/cases/findAllCaseDefinitions
