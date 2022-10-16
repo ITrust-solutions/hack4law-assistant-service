@@ -7,7 +7,7 @@ Stworzyć elastyczne narzędzie do zarządzania zadaniami składającymi się z 
 ## Technologia
 
 - Java 17, Spring Boot
-- Aplikacja wykonana wg wzorca contract-first, to znaczy, że w pierwszej kolejności powstała dokumentacja usług w formacie OpenApi, a następnie automatycznie wygenerowane zostały interfejsy programistyczne spełniające opisany kontrakt.
+- Aplikacja wykonana wg wzorca contract-first, to znaczy, że w pierwszej kolejności powstała dokumentacja usług w formacie OpenApi, a następnie automatycznie wygenerowane zostały interfejsy programistyczne spełniające opisany kontrakt (`src/main/resources/openapi.yaml`). 
 
 ## Środowisko developerskie
 
