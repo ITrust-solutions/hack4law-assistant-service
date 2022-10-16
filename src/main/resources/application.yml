@@ -20,10 +20,13 @@ spring:
     password: zkw8GRO7omaO
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
 
 springdoc:
   swagger-ui:
     disable-swagger-default-url: false
+
 hack4law-service:
     cors:
         allowed-origin: '*'

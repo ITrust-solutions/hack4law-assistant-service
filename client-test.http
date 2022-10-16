@@ -1,4 +1,5 @@
 ###
+# @name Create Case Definition
 POST http://localhost:8080/api/assistant/cases/createCaseDefinition
 Content-Type: application/json
 
@@ -55,6 +56,7 @@ Content-Type: application/json
 }
 
 ###
+# @name Create Case
 POST http://localhost:8080/api/assistant/cases/createCase
 Content-Type: application/json
 
@@ -94,13 +96,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/assistant/cases/findAllCases
+# @name Find All Case Definitions
+GET {{host}}/api/assistant/cases/findAllCaseDefinitions
 
 ###
 GET http://localhost:8080/api/assistant/cases/11
 
 ###
-GET http://localhost:8080/api/assistant/cases/findAllCaseDefinitions
+# @name Find all cases
+GET {{host}}/api/assistant/cases/findAllCases
 
 ###
 PUT http://localhost:8080/api/assistant/cases/updateById/11

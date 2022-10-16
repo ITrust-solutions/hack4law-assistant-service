@@ -20,6 +20,7 @@
         <package.to.generate>${project.groupId}.${project.artifactId}</package.to.generate>
         <generate.interface.only>true</generate.interface.only>
         <springdoc.version>1.6.9</springdoc.version>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <dependencyManagement>
