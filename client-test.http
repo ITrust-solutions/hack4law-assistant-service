@@ -100,14 +100,14 @@ Content-Type: application/json
 GET {{host}}/api/assistant/cases/findAllCaseDefinitions
 
 ###
-GET http://localhost:8080/api/assistant/cases/11
+GET {{host}}/api/assistant/cases/11
 
 ###
 # @name Find all cases
 GET {{host}}/api/assistant/cases/findAllCases
 
 ###
-PUT http://localhost:8080/api/assistant/cases/updateById/11
+PUT {{host}}/api/assistant/cases/updateById/11
 Content-Type: application/json
 
 {
